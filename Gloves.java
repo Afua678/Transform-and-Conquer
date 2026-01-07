@@ -3,6 +3,11 @@ import java.util.Scanner;
 
 public class Gloves {
 
+    // time complexity: O(nlogn)
+    // splitting the input and converting it to integers would take O(n), mergesort takes O(nlogn),
+    // and counting the pairs would take O(n) so mergesort dominates the time complexity which is why it is O(nlogn)
+
+    // space complexity: 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.print("Enter a list of integers: ");
@@ -14,19 +19,25 @@ public class Gloves {
 
         int[] inputArray = new int[temp.length];
         for (int i = 0; i < temp.length; i++) {
-            inputArray[i] = Integer.parseInt(temp[i]);
+            inputArray[i] = Integer.parseInt(temp[i].trim());
         }
 
         int[] sortedArray = mergeSort(inputArray);
-        System.out.println(Arrays.toString(sortedArray));
+        int pairs = 0;
+
+        for (int i = 0; i < sortedArray.length - 1; i++) {
+            if (sortedArray[i] == sortedArray[i+1]) {
+                pairs++;
+                i++;
+            }
+        }
+
+        System.out.println("The number of matching pairs is: " + pairs);
+
         
         in.close();
         
     }
-
-        
-
-    
 
     public static int[] mergeSort(int[] a) {
         if (a.length < 2) {
