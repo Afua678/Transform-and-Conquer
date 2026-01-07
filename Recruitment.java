@@ -3,7 +3,20 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class Recruitment {
+
+    // create a class to aid in priority queue
+
+    static class Recruits {
+        int hires;
+        int teachers;
+
+        Recruits(int a, int b) {
+            hires = a;
+            teachers = b;
+        }
+    }
     // do priority queue with teachers as the first priority and hires second
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
@@ -20,5 +33,11 @@ public class Recruitment {
 
         System.out.println("Enter a list of required teachers for each trip:");
         String taught = input.nextLine();
+
+        /*
+         * for loop through the end of the array
+         * adding
+         * pq.add(new Recruits(hire, teacher))
+         */
     }
 }
