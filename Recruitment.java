@@ -6,13 +6,21 @@ public class Recruitment {
 
     // create a class to aid in priority queue
 
-    static class Recruits {
+    static class Recruits implements Comparable<Recruits> {
         int hires;
         int teachers;
 
         Recruits(int a, int b) {
             hires = a;
             teachers = b;
+        }
+
+        @Override
+        public int compareTo(Recruits other) {
+            if (this.teachers == other.teachers) {
+                return Integer.compare(this.hires, other.hires); // max priority for hires
+            }
+            return Integer.compare(other.teachers, this.teachers); // min priority for teachers
         }
     }
     // do priority queue with teachers as the first priority and hires second
