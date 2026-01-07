@@ -1,6 +1,7 @@
 import java.util.PriorityQueue;
 import java.util.Comparator;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Recruitment {
 
@@ -39,8 +40,23 @@ public class Recruitment {
         System.out.println("Enter a list of hires from each venue:");
         String hired = input.nextLine();
 
+        hired = hired.substring(1, hired.length() - 1);
+        String[] temp = hired.split(",");
+        int[] hiring = new int[temp.length]; // turn into array for hires
+        for (int i = 0; i < temp.length; i++) {
+            hiring[i] = Integer.parseInt(temp[i].trim());
+        }
+
         System.out.println("Enter a list of required teachers for each trip:");
         String taught = input.nextLine();
+
+        taught = taught.substring(1, taught.length() - 1);
+        String[] tp = taught.split(",");
+
+        int[] teaching = new int[tp.length];
+        for (int i = 0; i < tp.length; i++) {
+            teaching[i] = Integer.parseInt(tp[i].trim());
+        }
 
         /*
          * for loop through the end of the array

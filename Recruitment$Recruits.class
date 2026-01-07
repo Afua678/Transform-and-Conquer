@@ -1,0 +1,51 @@
+// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
+import java.util.Scanner;
+
+public class Recruitment {
+   public Recruitment() {
+   }
+
+   public static void main(String[] var0) {
+      Scanner var1 = new Scanner(System.in);
+      System.out.println("Enter a positive integer for k:");
+      int var2 = var1.nextInt();
+      var1.nextLine();
+      System.out.println("Enter nonnegative integer for w:");
+      int var3 = var1.nextInt();
+      var1.nextLine();
+      System.out.println("Enter a list of hires from each venue:");
+      String var4 = var1.nextLine();
+      var4 = var4.substring(1, var4.length() - 1);
+      String[] var5 = var4.split(",");
+      int[] var6 = new int[var5.length];
+
+      for(int var7 = 0; var7 < var5.length; ++var7) {
+         var6[var7] = Integer.parseInt(var5[var7].trim());
+      }
+
+      int[] var11 = var6;
+      int var8 = var6.length;
+
+      for(int var9 = 0; var9 < var8; ++var9) {
+         int var10 = var11[var9];
+         System.out.println(var10);
+      }
+
+      System.out.println("Enter a list of required teachers for each trip:");
+      String var12 = var1.nextLine();
+   }
+
+   static class Recruits implements Comparable<Recruits> {
+      int hires;
+      int teachers;
+
+      Recruits(int var1, int var2) {
+         this.hires = var1;
+         this.teachers = var2;
+      }
+
+      public int compareTo(Recruits var1) {
+         return this.teachers == var1.teachers ? Integer.compare(this.hires, var1.hires) : Integer.compare(var1.teachers, this.teachers);
+      }
+   }
+}
