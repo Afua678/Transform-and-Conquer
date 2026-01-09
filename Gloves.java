@@ -7,8 +7,12 @@ public class Gloves {
     // splitting the input and converting it to integers would take O(n), mergesort takes O(nlogn),
     // and counting the pairs would take O(n) so mergesort dominates the time complexity which is why it is O(nlogn)
 
-    // space complexity: 
+    // space complexity: O(n)
+    // this algorithm uses multiple arrays of size n to store the information and then convert it
+    // constants don't affect the space complexity however so although there are multiple arrays it is still O(n)
+
     public static void main(String[] args) {
+        // get user input
         Scanner in = new Scanner(System.in);
         System.out.print("Enter a list of integers: ");
         
@@ -17,6 +21,7 @@ public class Gloves {
         input = input.substring(1, input.length() - 1);
         String[] temp = input.split(",");
 
+        // convert string input into integers
         int[] inputArray = new int[temp.length];
         for (int i = 0; i < temp.length; i++) {
             inputArray[i] = Integer.parseInt(temp[i].trim());
@@ -25,6 +30,7 @@ public class Gloves {
         int[] sortedArray = mergeSort(inputArray);
         int pairs = 0;
 
+        // count pairs
         for (int i = 0; i < sortedArray.length - 1; i++) {
             if (sortedArray[i] == sortedArray[i+1]) {
                 pairs++;
@@ -32,12 +38,14 @@ public class Gloves {
             }
         }
 
+    
+        // print results
         System.out.println("The number of matching pairs is: " + pairs);
-
-        
         in.close();
         
     }
+
+    // merge sort implementation
 
     public static int[] mergeSort(int[] a) {
         if (a.length < 2) {
