@@ -3,7 +3,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Arrays;
 
-/* Time Complexity: In the worst case n^2
+/* Time Complexity: O(nlogn + klogn) In the worst case n^2
 Space Complexity: n [arrays of size n, 2 priority queue which takes size n, the number of Recruits Objects is also 0(n), and the numbervariables are constant (1)]
  */
 public class Recruitment {
@@ -72,20 +72,19 @@ public class Recruitment {
                                                                      // fewer teachers than w
             Recruits z = staff.poll();
             finStaff.add(z);
-            System.out.println(z.hires + " t" + z.teachers);
         }
 
         while (k > 0) { // poll from priority queue until k is 0
             while (staff.peek() != null && staff.peek().teachers <= w) {
                 Recruits z = staff.poll();
                 finStaff.add(z);
-                System.out.println(z.hires + " t" + z.teachers);
             }
             if (finStaff.peek() != null) {
                 int z = finStaff.poll().hires;
                 w += z;
-                System.out.println("w +" + z);
                 k--;
+            } else {
+                break;
             }
 
         }
