@@ -3,14 +3,11 @@ import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Arrays;
 
-/* Time Complexity: 
-Space Complexity: n [arrays of size n, priority queue takes size n, and variable are constant (1)]
+/* Time Complexity: In the worst case n^2
+Space Complexity: n [arrays of size n, 2 priority queue which takes size n, the number of Recruits Objects is also 0(n), and the numbervariables are constant (1)]
  */
 public class Recruitment {
-
-    // create a class to aid in priority queue
-
-    static class Recruits { // implements Comparable<Recruits>
+    static class Recruits { // create a class to aid in priority queue
         int hires;
         int teachers;
 
@@ -18,17 +15,7 @@ public class Recruitment {
             hires = a;
             teachers = b;
         }
-
-        // @Override
-        // public int compareTo(Recruits other) {
-        // if (this.teachers == other.teachers) {
-        // return Integer.compare(other.hires, this.hires); // max priority for hires
-        // }
-        // return Integer.compare(this.teachers, other.teachers); // min priority for
-        // teachers
-        // }
     }
-    // do priority queue with teachers as the first priority and hires second
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -61,38 +48,48 @@ public class Recruitment {
             teaching[i] = Integer.parseInt(tp[i].trim());
         }
 
-        PriorityQueue<Recruits> staff = new PriorityQueue<>(
+        PriorityQueue<Recruits> staff = new PriorityQueue<>( // this queue should order by teachers needed
+                                                             // starting with the least, then by # of hires
                 (a, b) -> {
-                    if (a.teachers == b.teachers) { // a.teachers < w && b.teachers < w
+                    if (a.teachers == b.teachers) { // if teachers are equal take largest hires
                         return b.hires - a.hires;
                     }
                     return a.teachers - b.teachers;
                 });
+
         for (int i = 0; i < hiring.length; i++) { // add values from both arrays to queue
             Recruits b = new Recruits(hiring[i], teaching[i]);
             staff.add(b);
         }
 
-        while (w >= 0 && k > 0) {
-            Recruits a = staff.poll();
-            System.out.println(a.hires + " " + a.teachers);
-            if (w - a.teachers >= 0) {
-                w += a.hires;
-                System.out.println(w);
-            }
-            System.out.println(w);
-            k--;
+        PriorityQueue<Recruits> finStaff = new PriorityQueue<>( // the final staff queue should have only
+                                                                // recruitments that do not need more teachers than w
+                (a, b) -> {
+                    return b.hires - a.hires; // so only compare the hires
+                });
+
+        while (staff.peek() != null && staff.peek().teachers <= w) { // poll only recruitments that need
+                                                                     // fewer teachers than w
+            Recruits z = staff.poll();
+            finStaff.add(z);
+            System.out.println(z.hires + " t" + z.teachers);
         }
 
-        if (w <= 0) {
-            System.out.println("The maximum number of teachers is: 0");
-        } else {
-            System.out.println("The maximum number of teachers is: " + w);
+        while (k > 0) { // poll from priority queue until k is 0
+            while (staff.peek() != null && staff.peek().teachers <= w) {
+                Recruits z = staff.poll();
+                finStaff.add(z);
+                System.out.println(z.hires + " t" + z.teachers);
+            }
+            if (finStaff.peek() != null) {
+                int z = finStaff.poll().hires;
+                w += z;
+                System.out.println("w +" + z);
+                k--;
+            }
+
         }
-        /*
-         * for loop through the end of the array
-         * adding
-         * pq.add(new Recruits(hire, teacher))
-         */
+
+        System.out.println("The maximum number of teachers is: " + w);
     }
 }
